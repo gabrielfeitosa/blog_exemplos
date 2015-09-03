@@ -1,10 +1,14 @@
 [
     {
+        "id": 0,
         "nome": "Xilito",
-        "raca": "Pé duro"
+        "raca": "ViraLata",
+        "idade": 5
     },
     {
+        "id": 1,
         "nome": "Chiquinha",
-        "raca": "Poodle"
+        "raca": "Poodle",
+        "idade": 1
     }
 ]
