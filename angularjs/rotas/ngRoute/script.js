@@ -2,7 +2,30 @@
     angular.module('feira-app',['ngRoute']);
 
     angular.module('feira-app')
+      .config(function configurar($routeProvider){
+        $routeProvider
+          .when('/animais', {
+            templateUrl: 'list.html',
+            controller: 'AnimalListaController'
+          })
+          .when('/animais/:id', {
+            templateUrl: 'detalhe.html',
+            controller: 'AnimalDetalheController'
+          }).otherwise({
+            redirectTo: '/animais'
+          });
+    });
+
+    angular.module('feira-app')
+      .controller('AppController',function($scope, $route, $routeParams, $location){
+        $scope.$route = $route;
+        $scope.$location = $location;
+        $scope.$routeParams = $routeParams;
+    });
+
+    angular.module('feira-app')
       .controller('AnimalListaController',function($scope,AnimalFactory){
+        $scope.nome = 'AnimalListaController';
       $scope.listar = function(){
         return AnimalFactory.listar();
       }
@@ -10,22 +33,8 @@
 
     angular.module('feira-app')
       .controller('AnimalDetalheController',function($scope,$routeParams,AnimalFactory){
+      $scope.nome = 'AnimalDetalheController';
       $scope.animal = AnimalFactory.recuperar($routeParams.id);
-    });
-
-    angular.module('feira-app')
-      .config(function configurar($routeProvider){
-        $routeProvider
-          .when('/animais', {
-            templateUrl: 'animal-list.html',
-            controller: 'AnimalListaController'
-          })
-          .when('/animais/:id', {
-            templateUrl: 'animal-detalhe.html',
-            controller: 'AnimalDetalheController'
-          }).otherwise({
-            redirectTo: '/animais'
-          });
     });
 
     angular.module('feira-app')
