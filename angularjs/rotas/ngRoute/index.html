@@ -13,7 +13,8 @@
     <p><b>Vamos ver o que está acontecendo?</b></p>
     <pre>Path ($location.path()) = {{$location.path()}}</pre>
     <pre>Template ($route.current.templateUrl) = {{$route.current.templateUrl}}</pre>
-    <pre>Nome do controlador ($route.current.scope.nome) = {{$route.current.scope.nome}}</pre>
+    <pre>Controlador ($route.current.controller) = {{$route.current.controller}}</pre>
+    <pre>Titulo da Página ($route.current.scope.titulo) = {{$route.current.scope.titulo}}</pre>
     <pre>Parâmetros da URL ($routeParams) = {{$routeParams}}</pre>
   </div>
   <footer>
@@ -23,6 +24,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
   <script src="//code.angularjs.org/1.4.4/angular-route.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/config.js"></script>
   <script src="js/animal.lista.controller.js"></script>
   <script src="js/animal.detalhe.controller.js"></script>
   <script src="js/animal.factory.js"></script>

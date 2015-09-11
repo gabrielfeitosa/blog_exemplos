@@ -7,7 +7,7 @@
     AnimalDetalheController.$inject = ['$scope', '$routeParams', 'AnimalFactory'];
 
     function AnimalDetalheController($scope, $routeParams, AnimalFactory) {
-      $scope.nome = 'AnimalDetalheController';
+      $scope.titulo = 'Detalhe do Animal';
       $scope.animal = AnimalFactory.recuperar($routeParams.id);
     }
 })();

@@ -7,7 +7,7 @@
     AnimalListaController.$inject = ['$scope', 'AnimalFactory'];
 
     function AnimalListaController($scope, AnimalFactory) {
-      $scope.nome = 'AnimalListaController';
+     $scope.titulo = 'Lista de Animais';
       $scope.listar = function() {
         return AnimalFactory.listar();
       };

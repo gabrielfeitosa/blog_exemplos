@@ -4,23 +4,15 @@
 
   angular.module('feira-app')
     .run(function($rootScope, $route, $routeParams, $location) {
+      
+      $rootScope.$on('$routeChangeStart',function(evt,next,current){
+        console.log('Nome do Evento:'+evt.name);
+        console.log('Próxima Rota:'+ angular.toJson(next));
+        console.log('Rota Atual:'+ angular.toJson(current));
+      });
+
       $rootScope.$route = $route;
       $rootScope.$location = $location;
       $rootScope.$routeParams = $routeParams;
-    });
-
-  angular.module('feira-app')
-    .config(function($routeProvider) {
-      $routeProvider
-        .when('/animais', {
-          templateUrl: 'lista.html',
-          controller: 'AnimalListaController'
-        })
-        .when('/animais/:id', {
-          templateUrl: 'detalhe.html',
-          controller: 'AnimalDetalheController'
-        }).otherwise({
-          redirectTo: '/animais'
-        });
     });
 })();
