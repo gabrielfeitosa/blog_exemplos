@@ -2,26 +2,31 @@
   'use strict';
   angular.module('app-filters', []);
 
-  angular.module('app-filters')
-    .filter('inverterString', function() {
-      return function(input) {
-        input = input || '';
-        var out = "";
-        for (var i = 0; i < input.length; i++) {
-          out = input.charAt(i) + out;
-        }
-        return out;
-      };
-    });
+  angular.module('app-filters').filter('cpf', function() {
+    return function(input) {
+      var str = input + '';
+      if(str.length <= 11){
+        str = str.replace(/\D/g, '');
+        str = str.replace(/(\d{3})(\d)/, "$1.$2");
+        str = str.replace(/(\d{3})(\d)/, "$1.$2");
+        str = str.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+      }
+      return str;
+    };
+  });
 
   angular.module('app-filters')
     .filter('abestado', function() {
-      return function(input) {
-        input = input || '';
+      return function(input,muito) {
+        
+        var str = input || ''
         if (input) {
-          return input + ' é abestado!';
+          str += ' é abestado';
+          if(muito){
+            str += ' de cum força'
+          }
         }
-        return input;
+        return str;
       };
     });
 
@@ -31,4 +36,5 @@
       $scope.moedaFormatada2 = currencyFilter(123456789);
       $scope.dataFormatada = $filter('date')('1984-12-15T00:00','medium');
     });
+
 })();
