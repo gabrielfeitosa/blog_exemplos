@@ -12,13 +12,16 @@ import javax.ws.rs.Produces;
 @Path("/lanchonete")
 public class LanchoneteService {
 	
-	private boolean atendimentoAberto = false;
+	private static boolean atendimentoAberto = false;
 	
 	@POST
 	@Path("/abrir")
 	public void iniciarAtendimento(){
-		if(!atendimentoAberto)
+		if(!atendimentoAberto){
 			PedidosBD.iniciar();
+			atendimentoAberto = true;
+		}
+			
 	}
 	
 	@GET

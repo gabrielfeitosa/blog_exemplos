@@ -2,7 +2,7 @@
 <html ng-app="lanchonete">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Pedidos - Real Time</title>
 </head>
 <body>
 	<div ng-controller="LanchoneteController as lanchonete">
@@ -21,56 +21,7 @@
 		</div>
 	</div>
 	
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-	<script type="text/javascript">
-	var lanchonete = angular.module("lanchonete",[]);
-
-	lanchonete.service("LanchoneteService",function($http,$timeout){
-		var promise;
-		var self = {
-			'aberta': false,
-			'pedidos': [],
-			'abrir': function(){
-				$http.post("rest/lanchonete/abrir",{});
-				self.aberta = true;
-				self.activateRealtime();
-			},
-			'fechar': function(){
-				self.aberta = false;
-				$timeout.cancel(promise);
-			},
-			'activateRealtime': function(){
-				$http.get("rest/lanchonete/pedidos")
-	            .success(function(data) {
-	              self.pedidos = data;
-	           });
-		       promise = $timeout(self.activateRealtime, 1000);
-		    },
-		    'getPedidos': function(){	
-			    return self.pedidos;
-			},
-			'atenderPedido': function(id){
-				$http.delete("rest/lanchonete/pedidos/"+id);
-			}
-			 
-		}
-		return self;
-	});
-	
-	lanchonete.controller("LanchoneteController",function(LanchoneteService){
-		var self = this;
-		self.isAberta = function(){
-			return LanchoneteService.aberta;
-		}
-		self.abrir = LanchoneteService.abrir;
-		self.fechar = LanchoneteService.fechar;
-	});
-	lanchonete.controller("AtendimentoController",function(LanchoneteService){
-		var self = this;
-		self.getPedidos = LanchoneteService.getPedidos;
-		self.atenderPedido = LanchoneteService.atenderPedido;
-	});
- </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+	<script src="scripts/app.js"></script>
 </body>
 </html>
