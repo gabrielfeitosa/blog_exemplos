@@ -1,0 +1,13 @@
+{
+  "name": "bower-exemplo",
+  "version": "0.0.0",
+  "homepage": "https://github.com/gabrielfeitosa/blog_exemplos",
+  "authors": [
+    "Gabriel Feitosa <gabfeitosa@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "dependencies": {}
+}

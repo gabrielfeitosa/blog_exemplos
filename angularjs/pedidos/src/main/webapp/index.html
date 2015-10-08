@@ -1,0 +1,76 @@
+<!doctype html>
+<html ng-app="lanchonete">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div ng-controller="LanchoneteController as lanchonete">
+		<button ng-click="lanchonete.abrir()" ng-if="!lanchonete.isAberta()">Abrir
+			Lanchonete</button>
+		<button ng-click="lanchonete.fechar()" ng-if="lanchonete.isAberta()">Fechar
+			Lanchonete</button>
+		<div ng-controller="AtendimentoController as atendimento" ng-if="lanchonete.isAberta()">
+			<h2>Pedidos</h2>
+			<ul class="list-group">
+				<li ng-repeat="pedido in atendimento.getPedidos()">{{pedido.id}} -
+					{{pedido.item}}
+					<button ng-click="atendimento.atenderPedido(pedido.id)">Atender Pedido</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+	<script type="text/javascript">
+	var lanchonete = angular.module("lanchonete",[]);
+
+	lanchonete.service("LanchoneteService",function($http,$timeout){
+		var promise;
+		var self = {
+			'aberta': false,
+			'pedidos': [],
+			'abrir': function(){
+				$http.post("rest/lanchonete/abrir",{});
+				self.aberta = true;
+				self.activateRealtime();
+			},
+			'fechar': function(){
+				self.aberta = false;
+				$timeout.cancel(promise);
+			},
+			'activateRealtime': function(){
+				$http.get("rest/lanchonete/pedidos")
+	            .success(function(data) {
+	              self.pedidos = data;
+	           });
+		       promise = $timeout(this.activateRealtime, 1000);
+		    },
+		    'getPedidos': function(){
+			    return self.pedidos;
+			},
+			'atenderPedido': function(id){
+				$http.delete("rest/lanchonete/pedidos/"+id);
+			}
+			 
+		}
+		return self;
+	});
+	
+	lanchonete.controller("LanchoneteController",function(LanchoneteService){
+		var self = this;
+		self.isAberta = function(){
+			return LanchoneteService.aberta;
+		}
+		self.abrir = LanchoneteService.abrir;
+		self.fechar = LanchoneteService.fechar;
+	});
+	lanchonete.controller("AtendimentoController",function(LanchoneteService){
+		var self = this;
+		self.getPedidos = LanchoneteService.getPedidos;
+		self.atenderPedido = LanchoneteService.atenderPedido;
+	});
+ </script>
+</body>
+</html>
