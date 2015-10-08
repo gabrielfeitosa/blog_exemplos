@@ -45,7 +45,7 @@
 	            .success(function(data) {
 	              self.pedidos = data;
 	           });
-		       promise = $timeout(this.activateRealtime, 1000);
+		       promise = $timeout(self.activateRealtime, 1000);
 		    },
 		    'getPedidos': function(){
 			    return self.pedidos;
