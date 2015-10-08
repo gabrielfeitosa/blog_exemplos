@@ -6,7 +6,7 @@
       var promise;
       var aberto = false;
       var pedidos = [];
-      var URL = "http://localhost:8080/pedidos/rest/lanchonete";
+      var URL = "http://localhost:8080/pedidos/rest/balcao";
 
       return {
         isAberto: isAberto,
@@ -29,22 +29,21 @@
           .success(function(data) {
             pedidos = data;
           });
-      }
-
-      function ativarRealTime() {
-        atualizarPedidos();
-        promise = $timeout(ativarRealTime, 9000);
+        promise = $timeout(atualizarPedidos, 3000);
       }
 
       function iniciarAtendimento() {
-        $http.post(URL+"/iniciarAtendimento", {});
-        aberto = true;
-        ativarRealTime();
+        pedidos = [];
+        $http.post(URL+"/atendimento", true).success(function(){
+          aberto = true;
+          atualizarPedidos();
+        });
       }
 
       function encerrarAtendimento() {
         aberto = false;
-        $http.post(URL+"/encerrarAtendimento", {});
+        pedidos = [];
+        $http.post(URL+"/atendimento", false);
         $timeout.cancel(promise);
       }
 

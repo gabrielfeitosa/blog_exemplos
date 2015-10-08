@@ -1,27 +1,60 @@
 <!doctype html>
-<html ng-app="lanchonete">
+<html ng-app="app">
 <head>
 <meta charset="UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pedidos - Real Time</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 </head>
 <body>
-	<div ng-controller="LanchoneteController as lanchonete">
-		<button ng-click="lanchonete.abrir()" ng-if="!lanchonete.isAberta()">Abrir
-			Lanchonete</button>
-		<button ng-click="lanchonete.fechar()" ng-if="lanchonete.isAberta()">Fechar
-			Lanchonete</button>
-		<div ng-controller="AtendimentoController as atendimento" ng-if="lanchonete.isAberta()">
-			<h2>Pedidos</h2>
-			<ul class="list-group">
-				<li ng-repeat="pedido in atendimento.getPedidos()">{{pedido.id}} -
-					{{pedido.item}}
-					<button ng-click="atendimento.atenderPedido(pedido.id)">Atender Pedido</button>
-				</li>
-			</ul>
-		</div>
-	</div>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-	<script src="scripts/app.js"></script>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4"
+				ng-controller="BalcaoController as balcao">
+				<h1>Budega do Seu Zé</h1>
+				<button ng-click="balcao.fn.iniciarAtendimento()"
+					ng-if="!balcao.fn.isAberto()" class="btn btn-default">Abrir Atendimento</button>
+				<button ng-click="balcao.fn.encerrarAtendimento()"
+					ng-if="balcao.fn.isAberto()" class="btn btn-default">Fechar Atendimento</button>
+				<div ng-if="balcao.fn.isAberto()">
+					<h2>Balcão de Atendimento</h2>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<td>#</td>
+								<td>Item</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="pedido in balcao.fn.getPedidos()">
+								<td>{{pedido.id}}</td>
+								<td>{{pedido.item}}</td>
+								<td><button ng-class="{disabled: pedido.emAtendimento}"
+										class="btn btn-default"
+										ng-click="balcao.fn.atenderPedido(pedido)"
+										ng-disabled="pedido.emAtendimento">
+										{{pedido.emAtendimento ? 'Em Atendimento' : 'Atender Pedido'}}</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+			<script
+				src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+			
+			<script src="scripts/app.js"></script>
 </body>
 </html>

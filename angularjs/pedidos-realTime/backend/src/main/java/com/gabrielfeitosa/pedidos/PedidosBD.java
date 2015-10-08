@@ -6,9 +6,12 @@ import java.util.List;
 public class PedidosBD {
 
 	private static List<Pedido> pedidos = new LinkedList<Pedido>();
-
+	private static int index = 0;
+	
 	public static void cadastrarPedido(Pedido pedido){
-		System.out.println("Novo "+ pedido);
+		pedido.setId(index);
+		pedido.setItem(pedido.getItem()+" "+index);
+		index++;
 		pedidos.add(pedido);
 	}
 	
@@ -17,12 +20,12 @@ public class PedidosBD {
 	}
 	
 	public static void remover(Integer id) {
-		System.out.println("Removendo pedido "+ id);
-		pedidos.remove(new Pedido(id,null));
+		pedidos.remove(new Pedido(id));
 		
 	}
 
 	public static void zerarPedidos() {
-		pedidos = new LinkedList<Pedido>();		
+		pedidos.clear();		
+		index = 0;
 	}
 }

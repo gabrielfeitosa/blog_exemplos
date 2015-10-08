@@ -9,12 +9,16 @@ public class Pedido implements Serializable{
 	private Integer id;
 	private String item;
 	
-	public Pedido(Integer id, String item) {
+	public Pedido(String item) {
 		super();
-		this.id = id;
 		this.item = item;
 	}
 	
+	public Pedido(Integer id) {
+		super();
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -52,10 +56,4 @@ public class Pedido implements Serializable{
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Pedido [id=" + id + ", item=" + item + "]";
-	}
-	
 }
