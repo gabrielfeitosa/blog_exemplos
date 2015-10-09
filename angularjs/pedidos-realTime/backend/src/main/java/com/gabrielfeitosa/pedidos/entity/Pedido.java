@@ -1,6 +1,8 @@
-package com.gabrielfeitosa.pedidos;
+package com.gabrielfeitosa.pedidos.entity;
 
 import java.io.Serializable;
+
+import com.gabrielfeitosa.pedidos.util.StatusPedido;
 
 public class Pedido implements Serializable{
 
@@ -8,10 +10,12 @@ public class Pedido implements Serializable{
 
 	private Integer id;
 	private String item;
+	private StatusPedido status;
 	
 	public Pedido(String item) {
 		super();
 		this.item = item;
+		status = StatusPedido.AGUARDANDO_ATENDIMENTO;
 	}
 	
 	public Pedido(Integer id) {
@@ -32,6 +36,14 @@ public class Pedido implements Serializable{
 		this.item = item;
 	}
 	
+	public StatusPedido getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusPedido status) {
+		this.status = status;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

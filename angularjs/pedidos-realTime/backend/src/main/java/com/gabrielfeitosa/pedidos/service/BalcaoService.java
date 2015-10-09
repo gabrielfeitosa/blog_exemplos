@@ -1,4 +1,4 @@
-package com.gabrielfeitosa.pedidos;
+package com.gabrielfeitosa.pedidos.service;
 
 import java.util.List;
 
@@ -10,17 +10,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import com.gabrielfeitosa.pedidos.bd.PedidosBD;
+import com.gabrielfeitosa.pedidos.entity.Pedido;
+
 @Path("/balcao")
 public class BalcaoService {
-
-	private static boolean atendimentoAberto = false;
 
 	@POST
 	@Path("/atendimento")
 	@Consumes("application/json")
 	public void statusAtendimento(Boolean status) {
-		atendimentoAberto = status;
-		mockarCadastroPedidos();
+		AtendimentoService.alterarStatusDoAtendimento(status);
 	}
 	
 	@GET
@@ -41,22 +41,4 @@ public class BalcaoService {
 	public void cadastrarPedido(Pedido pedido){
 		PedidosBD.cadastrarPedido(pedido);		
 	}
-	
-	private void mockarCadastroPedidos() {
-		PedidosBD.zerarPedidos();
-		new Thread() {
-			@Override
-			public void run() {
-				while (atendimentoAberto) {
-					cadastrarPedido(new Pedido("Item"));
-					try {
-						Thread.sleep((int)(Math.random()*10000));
-					} catch (InterruptedException e) {
-						System.err.println("Ops, acabou a CACHAÇA!");
-					}
-				}
-			}
-		}.start();
-	}
-
 }

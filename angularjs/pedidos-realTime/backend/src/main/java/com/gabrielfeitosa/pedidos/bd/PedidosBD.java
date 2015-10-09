@@ -1,7 +1,9 @@
-package com.gabrielfeitosa.pedidos;
+package com.gabrielfeitosa.pedidos.bd;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import com.gabrielfeitosa.pedidos.entity.Pedido;
 
 public class PedidosBD {
 
