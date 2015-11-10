@@ -1,20 +1,26 @@
 (function() {
-    angular.module("app", []);
+    
+    angular.module("app", ["luegg.directives","app.focus"]);
 
     angular.module("app")
         .factory("MensagemFactory", function($http, $timeout) {
             var promise;
-            var URL = "http://localhost:8080/chat/rest/mensagens/";
+            var URL = "http://gf-chat.herokuapp.com/rest/mensagens/";
             var mensagens = [];
             var aberto = false;
-
+            var contador = 5;
             return {
                 abrir: abrir,
                 listar: listar,
                 cadastrar: cadastrar,
                 isAberto: isAberto,
-                sair: sair
+                sair: sair,
+                getContador:getContador
             };
+
+            function getContador(){
+              return contador;
+            }
 
             function isAberto() {
                 return aberto;
@@ -24,20 +30,26 @@
                 return mensagens;
             }
 
-            function abrir(usuario) {
+            function abrir() {
                 aberto = true;
-                atualizar(usuario);
+                init();
             }
 
-            function atualizar(usuario) {
+            function atualizar() {
                 $http.get(URL)
                     .success(function(data) {
                         mensagens = data;
                     });
-                promise = $timeout(atualizar, 3000, true, usuario);
-
             }
 
+            function init(){
+                contador--;
+                if(contador === 0){
+                  atualizar();
+                  contador =5;
+                }
+                promise = $timeout(init, 1000); 
+            }
             function cadastrar(usuario, texto) {
                 var msg = {
                     usuario: usuario,
@@ -46,16 +58,18 @@
                 $http.post(URL, msg);
             }
 
-            function sair(){
-              $timeout.cancel(promise);
-              aberto = false;
+            function sair() {
+                $timeout.cancel(promise);
+                aberto = false;
             }
         });
+
 
     angular.module("app")
         .controller("ChatController", function($scope, MensagemFactory) {
             $scope.mensagens = MensagemFactory;
-            $scope.usuario = {nome: ""};
+            $scope.usuario = {
+                nome: ""
+            };
         });
-
 })();

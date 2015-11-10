@@ -27,3 +27,13 @@ body {
   height: 60px;
   background-color: #676464;
 }
+
+[scroll-glue]{
+  height: 300px;
+  overflow-y: scroll;
+  border: 1px solid gray;
+}
+
+h6{
+  color: gray;
+}
