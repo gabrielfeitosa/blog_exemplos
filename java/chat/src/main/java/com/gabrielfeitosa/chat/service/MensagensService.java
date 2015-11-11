@@ -11,6 +11,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.gabrielfeitosa.chat.dtos.Mensagem;
 
@@ -21,12 +23,13 @@ public class MensagensService {
 	
 	@POST
 	@Consumes("application/json")
-	public void cadastrar(Mensagem m){
+	public Response cadastrar(Mensagem m){
 		m.setDataRegistro(Calendar.getInstance());
 		mensagens.add(m);
 		if(mensagens.size() >100){
 			mensagens.pop();
 		}
+		return Response.status(Status.CREATED).build();
 	}
 	
 	@GET
