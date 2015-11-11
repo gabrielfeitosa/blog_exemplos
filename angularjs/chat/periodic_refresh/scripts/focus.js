@@ -7,7 +7,6 @@
             return function(id) {
                 $timeout(function() {
                     var element = $window.document.getElementById(id);
-                    console.log(element);
                     if (element)
                         element.focus();
                 });
@@ -15,13 +14,13 @@
         })
 
     angular.module("app.focus")
-        .directive('gfEventFocus', function(focus) {
+        .directive('eventFocus', function(focus) {
             return function(scope, elem, attr) {
-                elem.on(attr.gfEventFocus, function() {
-                    focus(attr.gfEventFocusId);
+                elem.on(attr.eventFocus, function() {
+                    focus(attr.eventFocusId);
                 });
                 scope.$on('$destroy', function() {
-                    elem.off(attr.gfEventFocus);
+                    elem.off(attr.eventFocus);
                 });
             };
         });

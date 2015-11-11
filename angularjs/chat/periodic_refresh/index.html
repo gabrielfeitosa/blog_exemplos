@@ -20,14 +20,14 @@
       </div>
     </div>
     <div class="row">
-      <form class="form-inline" ng-submit="chat.entrar()" gf-event-focus="submit" gf-event-focus-id="texto">
+      <form class="form-inline" ng-submit="chat.entrar()" event-focus="submit" event-focus-id="texto">
         <div class="form-group" ng-if="!chat.isAberto()">
           <input id="usuario" class="form-control" ng-model="usuario.nome" placeholder="Informe um usuário" required>
           <button class="btn btn-primary btn-xs" type="submit">Entrar</button>
         </div>
         <div class="form-group" ng-if="chat.isAberto()">
           Usuário: <b>{{usuario.nome}}</b>
-          <button class="btn btn-danger btn-xs" ng-click="chat.sair()" gf-event-focus="click" gf-event-focus-id="usuario">Sair</button>
+          <button class="btn btn-danger btn-xs" ng-click="chat.sair()" event-focus="click" event-focus-id="usuario">Sair</button>
         </div>
       </form>
     </div>
@@ -63,6 +63,7 @@
     <script src="scripts/focus.js"></script>
     <script src="scripts/scrollglue.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="scripts/chat.factory.js"></script>
 </body>
 
 </html>
