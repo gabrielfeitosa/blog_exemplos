@@ -46,6 +46,11 @@
 			<artifactId>resteasy-jackson-provider</artifactId>
 			<version>3.0.13.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>
